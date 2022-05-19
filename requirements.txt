@@ -1,1 +1,2 @@
 flask==2.1.2
+Flask-JSONRPC==2.2.1
