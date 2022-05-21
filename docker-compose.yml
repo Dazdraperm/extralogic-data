@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+#  extralogic-data:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    environment:
+#      DB_NAME: extralogicdata
+#      DB_USER: extralogicdata
+#      DB_PASSWORD: extralogicdata
+#      DOCKER: true
+#      FLASK_APP: src
+#    ports:
+#      - 8000:8000
+#    depends_on:
+#      - postgres_db
+#    restart: on-failure:10
+
+  postgres_db:
+    image: postgres:14.2
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: extralogicdata
+      POSTGRES_USER: extralogicdata
+      POSTGRES_PASSWORD: extralogicdata
