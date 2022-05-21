@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template
 
+from src.models import Form
+
 bp = Blueprint('form', __name__, url_prefix='/form/v1')
 
 

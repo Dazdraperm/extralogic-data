@@ -1,3 +1,5 @@
 flask==2.1.2
 Flask-JSONRPC==2.2.1
+Flask_SQLAlchemy==2.5.1
 sqlalchemy==1.4.36
+psycopg2_binary==2.9.3
