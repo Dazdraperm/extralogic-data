@@ -1,4 +1,3 @@
-
 class FieldUtils:
     @staticmethod
     def get_field_matching(type_filed: str) -> str:
