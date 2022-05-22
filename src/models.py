@@ -22,7 +22,6 @@ class Form(model):
     name_form = db.Column(db.String(length=50))
 
     field_form = db.relationship("FieldForm", backref=db.backref("Form", lazy=True), cascade="all, delete", )
-    description = db.Column(db.String(length=150))
     create_date = db.Column(db.DateTime, server_default=func.now())
 
 
@@ -45,6 +44,7 @@ class FieldForm(model):
     id = db.Column(db.Integer, primary_key=True, autoincrement='ignore_fk')
     form_id = db.Column(db.Integer, db.ForeignKey('form.id', ondelete="CASCADE"), nullable=False)
     type_field_id = db.Column(db.Integer, db.ForeignKey('type_field.id', ondelete="SET NULL"), nullable=True)
+    description = db.Column(db.String(length=150))
 
     # @orm.reconstructor
     # def init_on_load(self, type_field: str):
