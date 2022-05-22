@@ -45,7 +45,7 @@
         <form id="update-form" method="post" action="{{ url_for('form.update_form', form_uid=form.form_uid) }}">
             <div>
                 <span> Form_uid </span>
-                <label> <input name="form_uid" required value="{{ form.form_uid }}"> </label>
+                <label> <input name="new_form_uid" required value="{{ form.form_uid }}"> </label>
                 <span> Название формы </span>
                 <label><input name="name_form" required value="{{ form.name_form }}"></label>
                 <button type="submit"> Изменить форму</button>

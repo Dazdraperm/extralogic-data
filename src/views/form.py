@@ -8,6 +8,12 @@ bp = Blueprint('form', __name__, url_prefix='/v1/form')
 
 @bp.route('/', methods=['GET'])
 def get_form():
+    """
+    Получение template для создания или изменения Form-ы.
+    Если в параметрах указать form_uid существующей Form, то ее шаблон выведется пользователю.
+
+    :return:
+    """
     form_uid = request.args.get('form_uid')
     error = request.args.get('error')
 
@@ -18,6 +24,10 @@ def get_form():
 
 @bp.route('/', methods=['POST'])
 def post_form():
+    """
+    Создание новой Form-ы
+    :return:
+    """
     error = None
     form = None
     validated_form = validate_form_data(request=request)
@@ -35,4 +45,9 @@ def post_form():
 
 @bp.route('/', methods=['PUT'])
 def update_form():
+    """
+    Обновление Form-ы.
+
+    :return:
+    """
     return url_for()
