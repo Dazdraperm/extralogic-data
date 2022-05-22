@@ -13,7 +13,6 @@ def create_app():
     app = Flask(__name__)
 
     app.config.from_object(DevConfig)
-
     jsonrpc = JSONRPC(app, "/api", enable_web_browsable_api=True)
 
     db.init_app(app)
