@@ -5,27 +5,71 @@
     <title>Create Forms</title>
 </head>
 <body>
+<a href="{{ url_for('form.get_form') }}">Создать новую форму</a>
 
-<form>
-    <label>
-        <select name="type-form" autofocus>
-            <option value="none" hidden="">Выберите тип</option>
-            <option value="input">Текст (строка)</option>
-            <option value="textarea">Текст (абзац)</option>
-            <option value="select">Один из списка</option>
-        </select>
-    </label>
-    <button type="submit" onclick=""></button>
-</form>
+<div>
+
+    <h3>Добавления поля в форму</h3>
+    <form action="" method="post">
+        <div>
+            <label>
+                <input type="text" placeholder="Название поля">
+            </label>
+            <label>
+                <input type="text" placeholder="Описания поля">
+            </label>
+            <label>
+                <select name="type-form" autofocus required>
+                    <option value="none" hidden="">Выберите тип поля</option>
+                    <option value="input">Текст (строка)</option>
+                    <option value="textarea">Текст (абзац)</option>
+                    <option value="select">Один из списка</option>
+                </select>
+            </label>
+            <input type="submit" onclick="" value="Добавить поле в форму"
+                   {% if form.form_uid %}{% else %}disabled{% endif %}>
+
+        </div>
+    </form>
+
+</div>
 
 
-<form id="create-form" method="post" action="{{ url_for('form.form_save') }}">
-    <label>
-        <input name="form_uid">
-    </label>
-    <button form="create-form" type="submit">Создать форму</button>
-</form>
+<div> .</div>
+<div> .</div>
+<div> .</div>
 
+<div>
+    {% if form.form_uid %}
+        <h3>Изменить данные формы</h3>
+        <form id="update-form" method="post" action="{{ url_for('form.update_form', form_uid=form.form_uid) }}">
+            <div>
+                <span> Form_uid </span>
+                <label> <input name="form_uid" required value="{{ form.form_uid }}"> </label>
+                <span> Название формы </span>
+                <label><input name="name_form" required value="{{ form.name_form }}"></label>
+                <button type="submit"> Изменить форму</button>
+            </div>
+        </form>
+
+    {% else %}
+        <h3>Создать форму</h3>
+        <form id="create-form" method="post" action="{{ url_for('form.post_form')}}">
+            <div>
+                <span> Form_uid </span>
+                <label> <input name="form_uid" required> </label>
+                <span> Название формы </span>
+                <label><input name="name_form" required></label>
+                <button type="submit"> Создать форму</button>
+            </div>
+        </form>
+    {% endif %}
+
+</div>
+{% if error %}
+<h2>{{ error }}</h2>
+{% endif %}
 <script src="{{ url_for('static', filename='js/function_for_form.js') }}" rel="script"></script>
+
 </body>
 </html>

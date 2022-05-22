@@ -1,6 +1,8 @@
 """
 Models DB
 """
+from typing import Optional
+
 from sqlalchemy import func
 from src import db
 
@@ -18,11 +20,15 @@ class Form(model):
     """
 
     id = db.Column(db.BigInteger, primary_key=True, autoincrement='ignore_fk')
-    form_uid = db.Column(db.String(length=250), unique=True, autoincrement='ignore_fk', nullable=True)
+    form_uid = db.Column(db.String(length=250), unique=True, nullable=True)
     name_form = db.Column(db.String(length=50))
 
     field_form = db.relationship("FieldForm", backref=db.backref("Form", lazy=True), cascade="all, delete", )
     create_date = db.Column(db.DateTime, server_default=func.now())
+
+    def __init__(self, form_uid: Optional[str], name_form: Optional[str]):
+        self.form_uid = form_uid
+        self.name_form = name_form
 
 
 class TypeField(model):
