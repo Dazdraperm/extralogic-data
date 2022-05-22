@@ -3,19 +3,26 @@ FROM python:3.10-slim-buster
 # Stdout and stderr streams to be unbuffered.
 ENV PYTHONUNBUFFERED 1
 
-# Workdir path.
-WORKDIR usr/app/src
+
+# Set work directory
+WORKDIR /usr/app
 
 # Copy project.
-COPY ./src usr/app/src
+COPY . /usr/app
 
 
 # Install requirements to Workdir.
-COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Listens on the specified network ports at runtime.
 EXPOSE 8000
 
+## Init db
+#CMD python -m flask init-db
+
+ENV FLASK_APP=src
+# run flask in dev mode
+ENV FLASK_ENV=development
+
 # Run server
-CMD python usr/app/src/ flask run -h 0.0.0.0 -p 8000
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "8000"]
