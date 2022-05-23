@@ -1,0 +1,22 @@
+<h3>Добавления поля в форму</h3>
+<form method="POST"  action="{{ url_for('field.create_field_form', form_uid=form_uid) }}">
+    <div>
+        <label>
+            <input type="text" placeholder="Название поля">
+        </label>
+        <label>
+            <input type="text" placeholder="Описания поля">
+        </label>
+        <label>
+            <select name="type-form" autofocus required>
+                <option value="none" hidden="">Выберите тип поля</option>
+                <option value="input">Текст (строка)</option>
+                <option value="textarea">Текст (абзац)</option>
+                <option value="select">Один из списка</option>
+            </select>
+        </label>
+        <input type="submit" onclick="" value="Добавить поле в форму"
+               {% if form.form_uid %}{% else %}disabled{% endif %}>
+
+    </div>
+</form>

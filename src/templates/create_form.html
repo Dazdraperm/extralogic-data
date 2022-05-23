@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,30 +10,7 @@
 <a href="{{ url_for('form.get_form') }}">Создать новую форму</a>
 
 <div>
-
-    <h3>Добавления поля в форму</h3>
-    <form action="" method="POST">
-        <div>
-            <label>
-                <input type="text" placeholder="Название поля">
-            </label>
-            <label>
-                <input type="text" placeholder="Описания поля">
-            </label>
-            <label>
-                <select name="type-form" autofocus required>
-                    <option value="none" hidden="">Выберите тип поля</option>
-                    <option value="input">Текст (строка)</option>
-                    <option value="textarea">Текст (абзац)</option>
-                    <option value="select">Один из списка</option>
-                </select>
-            </label>
-            <input type="submit" onclick="" value="Добавить поле в форму"
-                   {% if form.form_uid %}{% else %}disabled{% endif %}>
-
-        </div>
-    </form>
-
+    {% include 'add_field.html' %}
 </div>
 
 
@@ -45,13 +21,9 @@
 <div>
     {% include 'change_form.html' %}
 </div>
-{% if error %}
-    <h2>{{ error }}</h2>
-{% endif %}
 
-{% if response %}
-    <h2>{{ response }}</h2>
-{% endif %}
-
+<div>
+    {% include 'error_and_response.html' %}
+</div>
 </body>
 </html>
