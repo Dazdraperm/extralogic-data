@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Create Forms</title>
     <script src="{{ url_for('static', filename='js/AjaxForm.js') }}" rel="script"></script>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main_style.css') }}">
 </head>
 <body>
 <a href="{{ url_for('form.get_form') }}">Создать новую форму</a>
@@ -12,11 +12,9 @@
 <div>
     {% include 'add_field.html' %}
 </div>
-
-
-<div> .</div>
-<div> .</div>
-<div> .</div>
+<div>
+    {% include 'all_fields.html' %}
+</div>
 
 <div>
     {% include 'change_form.html' %}

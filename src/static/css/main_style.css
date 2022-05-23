@@ -1,0 +1,25 @@
+body{
+
+    margin-left: 2px;
+    padding-left: 2px;
+}
+li {
+    list-style-type: none;
+}
+
+ul {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.form-fields {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    padding: 1px 5px 1px;
+}

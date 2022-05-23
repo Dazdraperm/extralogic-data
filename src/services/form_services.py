@@ -3,7 +3,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
 from src import db
-from src.models import Form
+from src.models import Form, FieldForm, TypeField
 
 
 def delete_form_service(form_uid: str) -> int:
@@ -22,8 +22,17 @@ def get_form_or_none(form_uid) -> (Form, None):
     return Form.query.filter_by(form_uid=form_uid).first()
 
 
-def get_form_with_fields_or_none(form_uid) -> (Form, None):
-    return Form.query.options(joinedload(Form.field_form)).filter_by(form_uid=form_uid).first()
+def get_form_with_fields_or_none(form_uid) -> (tuple, None):
+    return (
+        db.session.query(
+            Form, TypeField.type_field
+        ).filter(
+            FieldForm.type_field_id == TypeField.id
+        ).filter(
+            Form.form_uid == form_uid
+        ).first()
+    )
+    # return Form.query.options(joinedload(TypeField.field_form)).filter_by(form_uid=form_uid).first()
 
 
 def update_validated_form_or_none(validated_instance: Form, form_uid: str) -> (Form, None):

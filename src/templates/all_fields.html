@@ -1,0 +1,21 @@
+<ul>
+
+    {% for field in form.field_form %}
+        <li>
+
+            <form>
+                <div class="form-fields">
+                    <div class="form-field">
+                        <label><input value="{{ field.name_field }}"></label>
+                    </div>
+                    <div class="form-field">
+                        <label><input value="{{ field.description }}"></label>
+                    </div>
+                    <div class="form-field">
+                        <label><input value="{{ field.type_field }}"></label>
+                    </div>
+                </div>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
