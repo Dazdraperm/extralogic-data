@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,35 +43,7 @@
 <div> .</div>
 
 <div>
-    {% if form.form_uid %}
-        <h3>Изменить данные формы</h3>
-        <form id="update-form" method="POST" action="{{ url_for('form.update_form', form_uid=form.form_uid) }}">
-            <div>
-                <span> Form_uid </span>
-                <label> <input name="form_uid" required value="{{ form.form_uid }}"> </label>
-                <span> Название формы </span>
-                <label> <input name="name_form" required value="{{ form.name_form }}"></label>
-
-            </div>
-            <input type="submit" value="Изменить форму">
-
-        </form>
-        <form id="delete-form" method="POST" action="{{ url_for('form.delete_form', form_uid=form.form_uid) }}">
-            <input type="submit" value="Удалить форму">
-        </form>
-    {% else %}
-        <h3>Создать форму</h3>
-        <form id="create-form" method="POST" action="{{ url_for('form.post_form') }}">
-            <div>
-                <span> Form_uid </span>
-                <label> <input name="form_uid" required> </label>
-                <span> Название формы </span>
-                <label><input name="name_form" required></label>
-                <button type="submit"> Создать форму</button>
-            </div>
-        </form>
-    {% endif %}
-
+    {% include 'change_form.html' %}
 </div>
 {% if error %}
     <h2>{{ error }}</h2>

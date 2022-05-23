@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for, Response
+from flask import Blueprint, render_template, request, url_for, Response, redirect
 
 from src.models import Form
 from src.services.form_services import (validate_form_data,
@@ -19,10 +19,11 @@ def get_form(form_uid=None):
     :return:
     """
     error = request.args.get('error')
+    response = request.args.get('response')
 
     form = Form.query.filter_by(form_uid=form_uid).first()
 
-    return render_template('create_form.html', form=form, error=error)
+    return render_template('create_form.html', form=form, error=error, response=response)
 
 
 @bp.route('/update/<form_uid>', methods=['POST'])
@@ -58,10 +59,10 @@ def delete_form(form_uid):
 
     id_form_deleted = delete_form_service(form_uid=form_uid)
 
-    if not id_form_deleted:
+    if id_form_deleted == 0:
         response = 'Такой формы уже/ещё нет'
 
-    return render_template('create_form.html', response=response, form=None, error=None)
+    return redirect(url_for('form.get_form', response=response))
 
 
 @bp.route('/', methods=['POST'])
