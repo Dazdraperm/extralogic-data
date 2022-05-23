@@ -1,8 +1,10 @@
 from flask import Blueprint, render_template, request, url_for, Response
 
 from src.models import Form
-from src.services.form_services import validate_form_data, insert_validated_instance_or_none, \
-    update_validated_form_or_none
+from src.services.form_services import (validate_form_data,
+                                        insert_validated_instance_or_none,
+                                        update_validated_form_or_none,
+                                        delete_form_service)
 
 bp = Blueprint('form', __name__, url_prefix='/v1/form')
 
@@ -45,15 +47,21 @@ def update_form(form_uid):
     return render_template('create_form.html', form=form, error=error)
 
 
-@bp.route('/<form_uid>', methods=['DELETE'])
-def delete_form():
+@bp.route('/delete/<form_uid>', methods=['POST'])
+def delete_form(form_uid):
     """
     Обновление Form-ы.
 
     :return:
     """
+    response = f'Вы удалили форму с form_uid: {form_uid}'
 
-    return url_for()
+    id_form_deleted = delete_form_service(form_uid=form_uid)
+
+    if not id_form_deleted:
+        response = 'Такой формы уже/ещё нет'
+
+    return render_template('create_form.html', response=response, form=None, error=None)
 
 
 @bp.route('/', methods=['POST'])

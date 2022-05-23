@@ -5,6 +5,13 @@ from src import db
 from src.models import Form
 
 
+def delete_form_service(form_uid: str) -> int:
+    id_form_deleted = Form.query.filter_by(form_uid=form_uid).delete()
+    db.session.commit()
+
+    return id_form_deleted
+
+
 def update_validated_form_or_none(validated_instance: Form, form_uid: str) -> (Form, None):
     form = Form.query.filter_by(form_uid=form_uid).first()
     result = None

@@ -55,6 +55,9 @@
             <input type="submit" value="Изменить форму">
 
         </form>
+        <form id="delete-form" method="POST" action="{{ url_for('form.delete_form', form_uid=form.form_uid) }}">
+            <input type="submit" value="Удалить форму">
+        </form>
     {% else %}
         <h3>Создать форму</h3>
         <form id="create-form" method="POST" action="{{ url_for('form.post_form') }}">
@@ -71,6 +74,10 @@
 </div>
 {% if error %}
     <h2>{{ error }}</h2>
+{% endif %}
+
+{% if response %}
+    <h2>{{ response }}</h2>
 {% endif %}
 
 </body>
