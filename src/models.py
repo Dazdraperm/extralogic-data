@@ -58,8 +58,16 @@ class FieldForm(model):
     form_id = db.Column(db.Integer, db.ForeignKey('form.id', ondelete="CASCADE"), nullable=False)
     type_field_id = db.Column(db.Integer, db.ForeignKey('type_field.id', ondelete="SET NULL"), nullable=True)
 
+    def __init__(self, form_id: Optional[int], type_field_id: int, name_field: str, description: str):
+        self.form_id = form_id
+        self.type_field_id = type_field_id
+        self.name_field = name_field
+        self.description = description
 
-    # @orm.reconstructor
-    # def init_on_load(self, type_field: str):
-    #     self.type_field = type_field
-    #     self.type_value_field = FieldUtils.get_field_matching(self.type_field)
+    def __repr__(self):
+        return (
+            f'form_id: {self.form_id}, '
+            f'type_field_id: {self.type_field_id}, '
+            f'name_field: {self.name_field}, '
+            f'description: {self.description}'
+        )

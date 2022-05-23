@@ -2,13 +2,13 @@
 <form method="POST"  action="{{ url_for('field.create_field_form', form_uid=form_uid) }}">
     <div>
         <label>
-            <input type="text" placeholder="Название поля">
+            <input type="text" name="name_field" placeholder="Название поля">
         </label>
         <label>
-            <input type="text" placeholder="Описания поля">
+            <input type="text" name="description_field" placeholder="Описания поля">
         </label>
         <label>
-            <select name="type-form" autofocus required>
+            <select name="type_field" autofocus required>
                 <option value="none" hidden="">Выберите тип поля</option>
                 <option value="input">Текст (строка)</option>
                 <option value="textarea">Текст (абзац)</option>
