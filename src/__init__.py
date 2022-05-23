@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from .config import DevConfig
 
+
 db = SQLAlchemy()
 
 
@@ -19,8 +20,9 @@ def create_app():
 
     app.cli.add_command(init_db_command)
 
-    from .views import form
+    from .views import form, field_form
     app.register_blueprint(form.bp)
+    app.register_blueprint(field_form.bp)
     # app.register_blueprint(docs.bp)
     # jsonrpc.register_blueprint(app, user, url_prefix='/user', enable_web_browsable_api=True)
 
