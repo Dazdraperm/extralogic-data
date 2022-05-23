@@ -30,6 +30,9 @@ class Form(model):
         self.form_uid = form_uid
         self.name_form = name_form
 
+    def __repr__(self):
+        return f'form_uid: {self.form_uid}, name_form: {self.name_form}'
+
 
 class TypeField(model):
     """

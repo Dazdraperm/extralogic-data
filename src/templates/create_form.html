@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Forms</title>
+    <script src="{{ url_for('static', filename='js/AjaxForm.js') }}" rel="script"></script>
+
 </head>
 <body>
 <a href="{{ url_for('form.get_form') }}">Создать новую форму</a>
@@ -42,19 +44,20 @@
 <div>
     {% if form.form_uid %}
         <h3>Изменить данные формы</h3>
-        <form id="update-form" method="post" action="{{ url_for('form.update_form', form_uid=form.form_uid) }}">
+        <form id="update-form">
             <div>
                 <span> Form_uid </span>
-                <label> <input name="new_form_uid" required value="{{ form.form_uid }}"> </label>
+                <label> <input name="form_uid" required value="{{ form.form_uid }}"> </label>
+                <label> <input name="old_form_uid" required hidden value="{{ form.form_uid }}"> </label>
                 <span> Название формы </span>
-                <label><input name="name_form" required value="{{ form.name_form }}"></label>
-                <button type="submit"> Изменить форму</button>
+                <label> <input name="name_form" required value="{{ form.name_form }}"></label>
+
             </div>
         </form>
-
+        <input type="submit" onclick="update_form()" value="Изменить форму">
     {% else %}
         <h3>Создать форму</h3>
-        <form id="create-form" method="post" action="{{ url_for('form.post_form')}}">
+        <form id="create-form" method="post" action="{{ url_for('form.post_form') }}">
             <div>
                 <span> Form_uid </span>
                 <label> <input name="form_uid" required> </label>
@@ -67,9 +70,8 @@
 
 </div>
 {% if error %}
-<h2>{{ error }}</h2>
+    <h2>{{ error }}</h2>
 {% endif %}
-<script src="{{ url_for('static', filename='js/function_for_form.js') }}" rel="script"></script>
 
 </body>
 </html>
