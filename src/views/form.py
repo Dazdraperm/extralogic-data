@@ -21,7 +21,7 @@ def get_form(form_uid=None):
     error = request.args.get('error')
     response = request.args.get('response')
     form = get_form_with_fields_or_none(form_uid=form_uid)
-    print(form.field_form)
+    print(form)
     return render_template('create_form.html', form=form, error=error, response=response)
 
 

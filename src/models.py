@@ -48,6 +48,9 @@ class TypeField(model):
     type_value_field = db.Column(db.String(length=50))
     field_form = db.relationship("FieldForm", backref=db.backref("TypeField", lazy=True), cascade="all, delete", )
 
+    def __repr__(self):
+        return f'type_field: {self.type_field}, type_value_field: {self.type_value_field}'
+
 
 class FieldForm(model):
     id = db.Column(db.Integer, primary_key=True, autoincrement='ignore_fk')
