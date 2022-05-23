@@ -23,7 +23,7 @@ def get_form(form_uid=None):
     return render_template('create_form.html', form=form, error=error)
 
 
-@bp.route('/<form_uid>', methods=['PUT'])
+@bp.route('/update/<form_uid>', methods=['POST'])
 def update_form(form_uid):
     """
     Обновление Form-ы.

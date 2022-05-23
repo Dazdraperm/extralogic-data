@@ -12,7 +12,7 @@
 <div>
 
     <h3>Добавления поля в форму</h3>
-    <form action="" method="post">
+    <form action="" method="POST">
         <div>
             <label>
                 <input type="text" placeholder="Название поля">
@@ -44,20 +44,20 @@
 <div>
     {% if form.form_uid %}
         <h3>Изменить данные формы</h3>
-        <form id="update-form">
+        <form id="update-form" method="POST" action="{{ url_for('form.update_form', form_uid=form.form_uid) }}">
             <div>
                 <span> Form_uid </span>
                 <label> <input name="form_uid" required value="{{ form.form_uid }}"> </label>
-                <label> <input name="old_form_uid" required hidden value="{{ form.form_uid }}"> </label>
                 <span> Название формы </span>
                 <label> <input name="name_form" required value="{{ form.name_form }}"></label>
 
             </div>
+            <input type="submit" value="Изменить форму">
+
         </form>
-        <input type="submit" onclick="update_form()" value="Изменить форму">
     {% else %}
         <h3>Создать форму</h3>
-        <form id="create-form" method="post" action="{{ url_for('form.post_form') }}">
+        <form id="create-form" method="POST" action="{{ url_for('form.post_form') }}">
             <div>
                 <span> Form_uid </span>
                 <label> <input name="form_uid" required> </label>
