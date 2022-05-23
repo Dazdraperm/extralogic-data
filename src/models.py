@@ -36,10 +36,10 @@ class Form(model):
 
 class TypeField(model):
     """
-    Описание полей таблицы:
+    В таблице заданы типы полей, которые можно создать в форме
 
-    type_field - Тип поля. (select, input, textarea, etc)
-    type_value_field - Тип значения поля. (String, Integer, etc)
+    :attr type_field: - Тип поля формы (select, input, textarea, etc)
+    :attr type_value_field: - Тип значения поля формы (String, Integer, etc)
     """
 
     id = db.Column(db.Integer, primary_key=True, autoincrement='ignore_fk')
@@ -51,9 +51,13 @@ class TypeField(model):
 
 class FieldForm(model):
     id = db.Column(db.Integer, primary_key=True, autoincrement='ignore_fk')
+
+    name_field = db.Column(db.String(length=40))
+    description = db.Column(db.String(length=150))
+
     form_id = db.Column(db.Integer, db.ForeignKey('form.id', ondelete="CASCADE"), nullable=False)
     type_field_id = db.Column(db.Integer, db.ForeignKey('type_field.id', ondelete="SET NULL"), nullable=True)
-    description = db.Column(db.String(length=150))
+
 
     # @orm.reconstructor
     # def init_on_load(self, type_field: str):
