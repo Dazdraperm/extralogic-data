@@ -1,15 +1,29 @@
 from flask import Request
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import joinedload
 
 from src import db
 from src.models import Form
 
 
 def delete_form_service(form_uid: str) -> int:
+    """
+    Удаление записи Form по ее form_uid
+    :param form_uid:
+    :return:
+    """
     id_form_deleted = Form.query.filter_by(form_uid=form_uid).delete()
     db.session.commit()
 
     return id_form_deleted
+
+
+def get_form_or_none(form_uid) -> (Form, None):
+    return Form.query.filter_by(form_uid=form_uid).first()
+
+
+def get_form_with_fields_or_none(form_uid) -> (Form, None):
+    return Form.query.options(joinedload(Form.field_form)).filter_by(form_uid=form_uid).first()
 
 
 def update_validated_form_or_none(validated_instance: Form, form_uid: str) -> (Form, None):
@@ -26,24 +40,6 @@ def update_validated_form_or_none(validated_instance: Form, form_uid: str) -> (F
         except IntegrityError as e:
             print(e)
 
-    return result
-
-
-def insert_validated_instance_or_none(validated_instance: db.Model) -> (db.Model, None):
-    """
-    Создание обьекта из инстанса
-
-    :param validated_instance:
-    :return:
-    """
-    result = None
-    db.session.add(validated_instance)
-
-    try:
-        db.session.commit()
-        result = validated_instance
-    except IntegrityError as e:
-        print(e)
     return result
 
 

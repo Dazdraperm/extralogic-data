@@ -1,10 +1,10 @@
-from flask import Blueprint, render_template, request, url_for, Response, redirect
+from flask import Blueprint, render_template, request, url_for, redirect
 
-from src.models import Form
 from src.services.form_services import (validate_form_data,
-                                        insert_validated_instance_or_none,
                                         update_validated_form_or_none,
-                                        delete_form_service)
+                                        delete_form_service,
+                                        get_form_with_fields_or_none)
+from src.services.general_service import save_validate_instance_or_error
 
 bp = Blueprint('form', __name__, url_prefix='/v1/form')
 
@@ -20,9 +20,8 @@ def get_form(form_uid=None):
     """
     error = request.args.get('error')
     response = request.args.get('response')
-
-    form = Form.query.filter_by(form_uid=form_uid).first()
-
+    form = get_form_with_fields_or_none(form_uid=form_uid)
+    print(form.field_form)
     return render_template('create_form.html', form=form, error=error, response=response)
 
 
@@ -71,16 +70,9 @@ def post_form():
     Создание новой Form-ы
     :return:
     """
-    error = None
-    form = None
+    save_error = 'Вы ввели не уникальный uid'
+
     validated_form = validate_form_data(request=request)
-
-    if validated_form:
-        form = insert_validated_instance_or_none(validated_form)
-    else:
-        error = 'Вы ввели не валидные данные'
-
-    if (error is None) and (form is None):
-        error = 'Вы ввели не уникальный uid'
+    form, error = save_validate_instance_or_error(validate_instance=validated_form, save_error=save_error)
 
     return render_template('create_form.html', form=form, error=error)
