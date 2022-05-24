@@ -4,7 +4,7 @@ from flask import Request
 from sqlalchemy.orm.exc import StaleDataError
 
 from src import db
-from src.models import TypeField, FieldForm
+from src.models import TypeField, FieldForm, Form
 
 
 def check_type_field_or_none(type_field: str) -> Optional[int]:
@@ -42,7 +42,8 @@ def validate_field_data(request: Request, form_id: int) -> Optional[FieldForm]:
         field_form = FieldForm(name_field=str(name_field),
                                description=str(description_field),
                                type_field_id=id_type_field,
-                               form_id=form_id)
+                               form_id=form_id,
+                               value_field=None)
     except ValueError as e:
         print(e)
         return None
@@ -53,11 +54,29 @@ def validate_field_data(request: Request, form_id: int) -> Optional[FieldForm]:
 def get_fields_form_or_none(form_id) -> Optional[FieldForm]:
     return (
         db.session.query(
-            FieldForm.form_id, FieldForm.id, FieldForm.name_field, FieldForm.description, TypeField.type_field
+            FieldForm.form_id, FieldForm.id.label('field_id'), FieldForm.name_field, FieldForm.description,
+            TypeField.type_field
         ).filter(
             FieldForm.type_field_id == TypeField.id
         ).filter(
             FieldForm.form_id == form_id
+        ).all()
+    )
+
+
+def get_form_data_service(form_uid) -> list[tuple] | None:
+    return (
+        db.session.query(
+            Form.id, Form.form_uid, Form.name_form, FieldForm.id.label('field_id'), FieldForm.name_field,
+            FieldForm.description,
+            FieldForm.type_field_id, FieldForm.value_field, TypeField.type_field, TypeField.type_value_field,
+            TypeField.id
+        ).filter(
+            Form.id == FieldForm.form_id
+        ).filter(
+            FieldForm.type_field_id == TypeField.id
+        ).filter(
+            Form.form_uid == form_uid
         ).all()
     )
 
@@ -78,7 +97,7 @@ def get_dict_fields(fields_form_rows: list) -> dict:
     dict_form_fields = {}
 
     for fields_form_row in fields_form_rows:
-        dict_form_fields[fields_form_row.id] = dict(fields_form_row)
+        dict_form_fields[fields_form_row.field_id] = dict(fields_form_row)
 
     return dict_form_fields
 
