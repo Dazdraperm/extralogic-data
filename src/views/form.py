@@ -50,7 +50,7 @@ def update_form(form_uid):
     if (error is None) and (form is None):
         error = 'Вы ввели не уникальный uid'
 
-    return render_template('create_form.html', form=form, error=error)
+    return redirect(url_for('form.get_form', error=error, form_uid=form.form_uid))
 
 
 @bp.route('/delete/<form_uid>', methods=['POST'])

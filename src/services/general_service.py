@@ -14,7 +14,6 @@ def insert_validated_instance_or_none(validated_instance: db.Model) -> (db.Model
     """
     result = None
     db.session.add(validated_instance)
-
     try:
         db.session.commit()
         result = validated_instance

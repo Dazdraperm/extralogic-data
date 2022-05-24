@@ -17,7 +17,7 @@ def create_field_form(form_uid):
         return Response(response='Формы с таким form_uid не существует', status=500)
 
     validated_field = validate_field_data(request=request, form_id=form.id)
-    error = save_validate_instance_or_error(validate_instance=validated_field, save_error=save_error)
+    field_form, error = save_validate_instance_or_error(validate_instance=validated_field, save_error=save_error)
 
     return redirect(url_for('form.get_form', form_uid=form_uid, error=error))
 
