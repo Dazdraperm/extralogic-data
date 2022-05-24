@@ -24,7 +24,7 @@ def get_form(form_uid=None):
     response = request.args.get('response')
 
     form = get_form_or_none(form_uid=form_uid)
-    print(form)
+
     if form:
         fields_form = get_fields_form_or_none(form_id=form.id)
 

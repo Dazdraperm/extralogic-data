@@ -8,23 +8,32 @@ from .config import DevConfig
 
 
 db = SQLAlchemy()
+jsonrpc = JSONRPC()
 
 
 def create_app():
+    """Create and config app"""
+
     app = Flask(__name__)
 
+    # Give config from object
     app.config.from_object(DevConfig)
-    jsonrpc = JSONRPC(app, "/api", enable_web_browsable_api=True)
 
+    # JsonRPC and DB instance
+    jsonrpc.init_app(app)
     db.init_app(app)
 
+    # For command "flask init-db"
     app.cli.add_command(init_db_command)
 
+    # Register blueprints
     from .views import form, field_form
     app.register_blueprint(form.bp)
     app.register_blueprint(field_form.bp)
-    # app.register_blueprint(docs.bp)
-    # jsonrpc.register_blueprint(app, user, url_prefix='/user', enable_web_browsable_api=True)
+
+    # Register json-rpc blueprints
+    from .api import rpc_bp
+    jsonrpc.register_blueprint(app, rpc_bp, url_prefix='/form', enable_web_browsable_api=True)
 
     return app
 

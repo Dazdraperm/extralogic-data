@@ -58,7 +58,7 @@ class TypeField(model):
 
     def __repr__(self):
         return (
-            f"type_field: {self.type_field}, type_value_field: {self.type_value_field}"
+            f"type_field: {self.type_field}, type_value_field: {self.type_value_field} field_form: {self.field_form}"
         )
 
 

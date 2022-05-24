@@ -25,15 +25,9 @@ def get_form_or_none(form_uid) -> Optional[Form]:
 
 
 def get_fields_form_or_none(form_id) -> Optional[FieldForm]:
-    return (
-        db.session.query(
-            FieldForm, TypeField
-        ).filter(
-            FieldForm.type_field_id == TypeField.id
-        ).filter(
-            FieldForm.form_id == form_id
-        ).all()
-    )
+    fields = TypeField.query.options(joinedload('field_form')).filter(FieldForm.form_id == form_id).all()
+
+    return fields
     # return Form.query.options(joinedload(TypeField.field_form)).filter_by(form_uid=form_uid).first()
 
 

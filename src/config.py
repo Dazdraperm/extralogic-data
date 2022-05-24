@@ -27,7 +27,7 @@ class Config(object):
 
 
 class DevConfig(Config):
-    SQLALCHEMY_ECHO = True
+    # SQLALCHEMY_ECHO = True
     DEBUG = True
 
 
