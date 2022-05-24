@@ -5,19 +5,19 @@
             <div class="form-field">
                 <span>Название поля</span>
                 <label>
-                    <input type="text" name="name_field" placeholder="Название поля">
+                    <input type="text" name="name_field" placeholder="Название поля" required>
                 </label>
             </div>
             <div class="form-field">
                 <span>Описание поля</span>
                 <label>
-                    <input type="text" name="description_field" placeholder="Описания поля">
+                    <input type="text" name="description_field" placeholder="Описания поля" required>
                 </label>
             </div>
             <div class="form-field">
+                <span>Тип поля</span>
                 <label>
                     <select name="type_field" autofocus required>
-                        <option value="none" hidden="">Выберите тип поля</option>
                         <option value="input">Текст (строка)</option>
                         <option value="textarea">Текст (абзац)</option>
                         <option value="select">Один из списка</option>
@@ -25,7 +25,7 @@
                 </label>
             </div>
             <div class="form-field">
-                <input type="submit" onclick="" value="Добавить поле в форму"
+                <input type="submit" onclick="" value="Добавить поле"
                        {% if form.form_uid %}{% else %}disabled{% endif %}>
             </div>
         </div>

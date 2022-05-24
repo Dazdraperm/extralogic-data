@@ -29,24 +29,21 @@ def validate_field_data(request: Request, form_id: int) -> Optional[FieldForm]:
     :param request:
     :return:
     """
+    field_form = None
     name_field = request.form.get('name_field')
     description_field = request.form.get('description_field')
     type_field = request.form.get('type_field')
 
-    id_type_field = check_type_field_or_none(type_field=type_field)
+    is_real_id_type_field = check_type_field_or_none(type_field=type_field)
+    is_str_name_field = isinstance(name_field, str) and name_field
+    is_str_description_field = isinstance(description_field, str) and description_field
 
-    if not id_type_field:
-        return None
-
-    try:
-        field_form = FieldForm(name_field=str(name_field),
-                               description=str(description_field),
-                               type_field_id=id_type_field,
+    if is_real_id_type_field and is_str_name_field and is_str_description_field:
+        field_form = FieldForm(name_field=name_field,
+                               description=description_field,
+                               type_field_id=is_real_id_type_field,
                                form_id=form_id,
                                value_field=None)
-    except ValueError as e:
-        print(e)
-        return None
 
     return field_form
 
