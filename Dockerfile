@@ -14,9 +14,6 @@ COPY . /usr/app
 # Install requirements to Workdir.
 RUN pip install -r requirements.txt
 
-# Listens on the specified network ports at runtime.
-EXPOSE 8000
-
 ## Init db
 #CMD python -m flask init-db
 
