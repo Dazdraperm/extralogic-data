@@ -38,9 +38,20 @@ def create_app():
     return app
 
 
+def init_type_fields():
+    from src.models import TypeField
+    db.session.add_all([
+        TypeField(type_field='select', type_value_field='string'),
+        TypeField(type_field='input', type_value_field='string'),
+        TypeField(type_field='textarea', type_value_field='string')]
+    )
+    db.session.commit()
+
+
 def init_db():
     db.drop_all()
     db.create_all()
+    init_type_fields()
 
 
 @click.command("init-db")

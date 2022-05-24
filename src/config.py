@@ -2,7 +2,7 @@ import os
 
 """DB CONFIG"""
 
-DB_DIALECT = 'postgresql'
+DB_DIALECT = 'postgres'
 DB_DRIVER = 'psycopg2'
 DB_USER = os.environ.get('DB_USER', 'extralogicdata')
 DB_PASSWORD = os.environ.get('DB_PASSWORD', 'extralogicdata')
