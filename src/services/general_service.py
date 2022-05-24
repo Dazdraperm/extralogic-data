@@ -1,6 +1,6 @@
 from typing import Optional
 
-from psycopg2 import IntegrityError
+from sqlalchemy.exc import IntegrityError
 
 from src import db
 

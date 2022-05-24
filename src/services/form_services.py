@@ -22,15 +22,15 @@ def get_form_or_none(form_uid) -> (Form, None):
     return Form.query.filter_by(form_uid=form_uid).first()
 
 
-def get_form_with_fields_or_none(form_uid) -> (tuple, None):
+def get_fields_form_or_none(form_id) -> (FieldForm, None):
     return (
         db.session.query(
-            Form, TypeField.type_field
+            FieldForm, TypeField
         ).filter(
             FieldForm.type_field_id == TypeField.id
         ).filter(
-            Form.form_uid == form_uid
-        ).first()
+            FieldForm.form_id == form_id
+        ).all()
     )
     # return Form.query.options(joinedload(TypeField.field_form)).filter_by(form_uid=form_uid).first()
 

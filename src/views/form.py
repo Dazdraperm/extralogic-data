@@ -3,7 +3,8 @@ from flask import Blueprint, render_template, request, url_for, redirect
 from src.services.form_services import (validate_form_data,
                                         update_validated_form_or_none,
                                         delete_form_service,
-                                        get_form_with_fields_or_none)
+                                        get_form_or_none,
+                                        get_fields_form_or_none)
 from src.services.general_service import save_validate_instance_or_error
 
 bp = Blueprint('form', __name__, url_prefix='/v1/form')
@@ -18,11 +19,16 @@ def get_form(form_uid=None):
 
     :return:
     """
+    fields_form = None
     error = request.args.get('error')
     response = request.args.get('response')
-    form = get_form_with_fields_or_none(form_uid=form_uid)
+
+    form = get_form_or_none(form_uid=form_uid)
     print(form)
-    return render_template('create_form.html', form=form, error=error, response=response)
+    if form:
+        fields_form = get_fields_form_or_none(form_id=form.id)
+
+    return render_template('create_form.html', form=form, error=error, response=response, fields_form=fields_form)
 
 
 @bp.route('/update/<form_uid>', methods=['POST'])
@@ -74,5 +80,5 @@ def post_form():
 
     validated_form = validate_form_data(request=request)
     form, error = save_validate_instance_or_error(validate_instance=validated_form, save_error=save_error)
-
+    print(form)
     return render_template('create_form.html', form=form, error=error)

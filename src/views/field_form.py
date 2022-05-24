@@ -19,7 +19,7 @@ def create_field_form(form_uid):
     validated_field = validate_field_data(request=request, form_id=form.id)
     form_field, error = save_validate_instance_or_error(validate_instance=validated_field, save_error=save_error)
 
-    return render_template('create_form.html', form=form, error=error, form_field=form_field)
+    return redirect(url_for('form.get_form', form_uid=form_uid))
 
 
 # @bp.route('/update/<form_uid>', methods=['POST'])
