@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filling Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main_style.css') }}">
+</head>
+<body>
+<div>
+    {% if fields_form %}
+        <div class="form-field">
+            <div>
+                Название формы: {{ form.name_form }}
+            </div>
+            <div>
+                Form_uid: {{ form.form_uid }}
+            </div>
+        </div>
+        <ul>
+            {% for field in fields_form %}
+                <li>
+                    <div class="form-fields">
+                        <div class="form-field">
+                            <label><input disabled value="{{ field[0].name_field }}"></label>
+                        </div>
+                        <div class="form-field">
+                            <label><input disabled value="{{ field[0].description }}"></label>
+                        </div>
+                        <div class="form-field">
+                            <label>
+                                <select>
+                                    <option disabled selected="selected">
+                                        {{ field[1].type_field }}
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+</body>
+</html>

@@ -10,6 +10,23 @@ from src.services.general_service import save_validate_instance_or_error
 bp = Blueprint('form', __name__, url_prefix='/v1/form')
 
 
+@bp.route('/data/<form_uid>', methods=['GET'])
+def get_data_form(form_uid):
+    """
+    Получение template с заполенной формой
+
+    :return:
+    """
+    fields_form = None
+
+    form = get_form_or_none(form_uid=form_uid)
+
+    if form:
+        fields_form = get_fields_form_or_none_template(form_id=form.id)
+
+    return render_template('filling_form/form_data.html', form=form, fields_form=fields_form)
+
+
 @bp.route('/', methods=['GET'])
 @bp.route('/<form_uid>', methods=['GET'])
 def get_form(form_uid=None):
@@ -28,7 +45,7 @@ def get_form(form_uid=None):
     if form:
         fields_form = get_fields_form_or_none_template(form_id=form.id)
 
-    return render_template('create_form/create_form.html', form=form, error=error, response=response,
+    return render_template('create_form/base.html', form=form, error=error, response=response,
                            fields_form=fields_form)
 
 
@@ -82,4 +99,4 @@ def post_form():
     validated_form = validate_form_data(request=request)
     form, error = save_validate_instance_or_error(validate_instance=validated_form, save_error=save_error)
     print(form)
-    return render_template('create_form/create_form.html', form=form, error=error)
+    return render_template('create_form/base.html', form=form, error=error)
