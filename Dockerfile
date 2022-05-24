@@ -19,7 +19,7 @@ ENV FLASK_APP=src
 ENV FLASK_ENV=development
 
 ## Init db
-CMD python -m flask init-db
+CMD flask init-db
 
 # Run server
 CMD flask run --host=0.0.0.0 --port=$PORT
