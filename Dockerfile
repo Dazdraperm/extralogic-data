@@ -18,8 +18,8 @@ ENV FLASK_APP=src
 # run flask in dev mode
 ENV FLASK_ENV=development
 
-## Init db
-CMD flask init-db
+EXPOSE 5000
 
+# Init db
 # Run server
-CMD flask run --host=0.0.0.0 --port=$PORT
+CMD flask init-db && flask run --host=0.0.0.0 --port=$PORT

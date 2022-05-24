@@ -14,8 +14,8 @@ DB_NAME = 'extralogicdata'
 DATABASE_URI = f'{DB_DIALECT}+{DB_DRIVER}://{DB_USER}:{DB_PASSWORD}@{DB_HOST_DOCKER}:{DB_PORT}/{DB_NAME}'
 
 # Heroku DATABASE_URL
-database_url = os.environ.get('DATABASE_URL')
-database_url = database_url.replace('postgres', 'postgresql')
+database_url = os.environ.get('DATABASE_URL', DATABASE_URI)
+DATABASE_URI = database_url.replace('postgres', 'postgresql')
 """"""
 
 """App Config"""
@@ -24,7 +24,7 @@ database_url = database_url.replace('postgres', 'postgresql')
 class Config(object):
     DEBUG = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = database_url
+    SQLALCHEMY_DATABASE_URI = DATABASE_URI
     TEMPLATES_AUTO_RELOAD = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
