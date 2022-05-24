@@ -25,4 +25,4 @@ ENV FLASK_APP=src
 ENV FLASK_ENV=development
 
 # Run server
-CMD ["flask", "run", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["flask", "run"]
