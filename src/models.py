@@ -37,6 +37,11 @@ class Form(model):
     def __repr__(self):
         return f"form_uid: {self.form_uid}, name_form: {self.name_form}"
 
+    def to_json(self):
+        return {'form_uid': self.form_uid,
+                'name_form': self.name_form
+                }
+
 
 class TypeField(model):
     """
@@ -65,6 +70,11 @@ class TypeField(model):
             f"type_field: {self.type_field}, type_value_field: {self.type_value_field}"
         )
 
+    def to_json(self):
+        return {'type_field': self.type_field,
+                'type_value_field': self.type_value_field
+                }
+
 
 class FieldForm(model):
     id = db.Column(db.Integer, primary_key=True, autoincrement="ignore_fk")
@@ -86,11 +96,13 @@ class FieldForm(model):
             type_field_id: int,
             name_field: str,
             description: str,
+            value_field: Optional[str]
     ):
         self.form_id = form_id
         self.type_field_id = type_field_id
         self.name_field = name_field
         self.description = description
+        self.value_field = value_field
 
     def __repr__(self):
         return (
@@ -100,6 +112,12 @@ class FieldForm(model):
             f"description: {self.description}"
         )
 
+    def to_json(self):
+        return {'form_id': self.form_id,
+                'name_field': self.name_field,
+                'description': self.description,
+                'value_field': self.value_field
+                }
 
 # class ValueFieldForm(model):
 #     """

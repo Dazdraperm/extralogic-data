@@ -10,18 +10,18 @@
 <a href="{{ url_for('form.get_form') }}">Создать новую форму</a>
 
 <div>
-    {% include 'add_field.html' %}
+    {% include 'create_form/add_field.html' %}
 </div>
 <div>
-    {% include 'all_fields.html' %}
-</div>
-
-<div>
-    {% include 'change_form.html' %}
+    {% include 'create_form/all_fields.html' %}
 </div>
 
 <div>
-    {% include 'error_and_response.html' %}
+    {% include 'create_form/change_form.html' %}
+</div>
+
+<div>
+    {% include 'create_form/error_and_response.html' %}
 </div>
 </body>
 </html>

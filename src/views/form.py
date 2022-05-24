@@ -28,7 +28,8 @@ def get_form(form_uid=None):
     if form:
         fields_form = get_fields_form_or_none_template(form_id=form.id)
 
-    return render_template('create_form.html', form=form, error=error, response=response, fields_form=fields_form)
+    return render_template('create_form/create_form.html', form=form, error=error, response=response,
+                           fields_form=fields_form)
 
 
 @bp.route('/update/<form_uid>', methods=['POST'])
@@ -81,4 +82,4 @@ def post_form():
     validated_form = validate_form_data(request=request)
     form, error = save_validate_instance_or_error(validate_instance=validated_form, save_error=save_error)
     print(form)
-    return render_template('create_form.html', form=form, error=error)
+    return render_template('create_form/create_form.html', form=form, error=error)
