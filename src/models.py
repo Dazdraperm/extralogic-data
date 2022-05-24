@@ -56,9 +56,13 @@ class TypeField(model):
         cascade="all, delete",
     )
 
+    def __init__(self, type_field, type_value_field):
+        self.type_field = type_field
+        self.type_value_field = type_value_field
+
     def __repr__(self):
         return (
-            f"type_field: {self.type_field}, type_value_field: {self.type_value_field} field_form: {self.field_form}"
+            f"type_field: {self.type_field}, type_value_field: {self.type_value_field}"
         )
 
 

@@ -24,13 +24,6 @@ def get_form_or_none(form_uid) -> Optional[Form]:
     return Form.query.filter_by(form_uid=form_uid).first()
 
 
-def get_fields_form_or_none(form_id) -> Optional[FieldForm]:
-    fields = TypeField.query.options(joinedload('field_form')).filter(FieldForm.form_id == form_id).all()
-
-    return fields
-    # return Form.query.options(joinedload(TypeField.field_form)).filter_by(form_uid=form_uid).first()
-
-
 def update_validated_form_or_none(validated_instance: Form, form_uid: str) -> Optional[Form]:
     form = Form.query.filter_by(form_uid=form_uid).first()
     result = None

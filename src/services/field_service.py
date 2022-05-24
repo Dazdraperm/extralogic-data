@@ -2,6 +2,7 @@ from typing import Optional
 
 from flask import Request
 
+from src import db
 from src.models import TypeField, FieldForm
 
 
@@ -46,3 +47,36 @@ def validate_field_data(request: Request, form_id: int) -> Optional[FieldForm]:
         return None
 
     return field_form
+
+
+def get_fields_form_or_none(form_id) -> Optional[FieldForm]:
+    return (
+        db.session.query(
+            FieldForm.form_id, FieldForm.id, FieldForm.name_field, FieldForm.description, TypeField.type_field
+        ).filter(
+            FieldForm.type_field_id == TypeField.id
+        ).filter(
+            FieldForm.form_id == form_id
+        ).all()
+    )
+
+
+def get_fields_form_or_none_template(form_id) -> Optional[FieldForm]:
+    return (
+        db.session.query(
+            FieldForm, TypeField
+        ).filter(
+            FieldForm.type_field_id == TypeField.id
+        ).filter(
+            FieldForm.form_id == form_id
+        ).all()
+    )
+
+
+def get_dict_fields(fields_form_rows: list) -> dict:
+    dict_form_fields = {}
+
+    for fields_form_row in fields_form_rows:
+        dict_form_fields[fields_form_row.id] = dict(fields_form_row)
+
+    return dict_form_fields

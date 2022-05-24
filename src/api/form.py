@@ -1,20 +1,24 @@
+from typing import Optional
+
 from flask_jsonrpc import JSONRPCBlueprint
 
-from src.services.form_services import get_form_or_none, get_fields_form_or_none
+from src.services.field_service import get_dict_fields, get_fields_form_or_none
+from src.services.form_services import get_form_or_none
 
 rpc_bp = JSONRPCBlueprint('form', __name__)
 
 
 @rpc_bp.method('form.get_fields')
-def index(form_uid: str):
-    fields_form = None
+def get_fields(form_uid: str) -> Optional[dict]:
+    fields_form_rows = None
+    dict_fields = None
 
     form = get_form_or_none(form_uid=form_uid)
 
     if form:
         fields_form_rows = get_fields_form_or_none(form_id=form.id)
 
-    print(dict(fields_form_rows[0]))
+    if fields_form_rows:
+        dict_fields = get_dict_fields(fields_form_rows)
 
-
-    # return dict(fields_form_rows)
+    return dict_fields

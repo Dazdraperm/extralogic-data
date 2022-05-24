@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request, url_for, redirect
 
+from src.services.field_service import get_fields_form_or_none_template
 from src.services.form_services import (validate_form_data,
                                         update_validated_form_or_none,
                                         delete_form_service,
-                                        get_form_or_none,
-                                        get_fields_form_or_none)
+                                        get_form_or_none)
 from src.services.general_service import save_validate_instance_or_error
 
 bp = Blueprint('form', __name__, url_prefix='/v1/form')
@@ -26,7 +26,7 @@ def get_form(form_uid=None):
     form = get_form_or_none(form_uid=form_uid)
 
     if form:
-        fields_form = get_fields_form_or_none(form_id=form.id)
+        fields_form = get_fields_form_or_none_template(form_id=form.id)
 
     return render_template('create_form.html', form=form, error=error, response=response, fields_form=fields_form)
 
