@@ -14,12 +14,12 @@ COPY . /usr/app
 # Install requirements to Workdir.
 RUN pip install -r requirements.txt
 
-## Init db
-CMD python -m flask init-db
-
 ENV FLASK_APP=src
 # run flask in dev mode
 ENV FLASK_ENV=development
+
+## Init db
+CMD python -m flask init-db
 
 # Run server
 CMD flask run --host=0.0.0.0 --port=$PORT
