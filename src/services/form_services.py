@@ -1,3 +1,5 @@
+from typing import Optional
+
 from flask import Request
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
@@ -18,11 +20,11 @@ def delete_form_service(form_uid: str) -> int:
     return id_form_deleted
 
 
-def get_form_or_none(form_uid) -> (Form, None):
+def get_form_or_none(form_uid) -> Optional[Form]:
     return Form.query.filter_by(form_uid=form_uid).first()
 
 
-def get_fields_form_or_none(form_id) -> (FieldForm, None):
+def get_fields_form_or_none(form_id) -> Optional[FieldForm]:
     return (
         db.session.query(
             FieldForm, TypeField
@@ -35,7 +37,7 @@ def get_fields_form_or_none(form_id) -> (FieldForm, None):
     # return Form.query.options(joinedload(TypeField.field_form)).filter_by(form_uid=form_uid).first()
 
 
-def update_validated_form_or_none(validated_instance: Form, form_uid: str) -> (Form, None):
+def update_validated_form_or_none(validated_instance: Form, form_uid: str) -> Optional[Form]:
     form = Form.query.filter_by(form_uid=form_uid).first()
     result = None
 
@@ -52,7 +54,7 @@ def update_validated_form_or_none(validated_instance: Form, form_uid: str) -> (F
     return result
 
 
-def validate_form_data(request: Request) -> (Form, None):
+def validate_form_data(request: Request) -> Optional[Form]:
     """
     Проверка, что form_uid и name_form валидируются по заданным условиям
 

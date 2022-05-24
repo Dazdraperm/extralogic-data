@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union
 
 from sqlalchemy.exc import IntegrityError
 
@@ -27,7 +27,7 @@ def insert_validated_instance_or_none(validated_instance: db.Model) -> (db.Model
 def save_validate_instance_or_error(
         validate_instance: db.Model,
         save_error: str
-) -> (Optional[db.Model], Optional[str]):
+) -> Union[Optional[db.Model], Optional[str]]:
     """
     Если существуют валидные данные, то пытаемся сохранить данный instance, если не получилось сохранить,
     то выдаем ошибку сохранения

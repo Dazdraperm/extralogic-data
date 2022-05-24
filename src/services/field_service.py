@@ -1,9 +1,11 @@
+from typing import Optional
+
 from flask import Request
 
 from src.models import TypeField, FieldForm
 
 
-def check_type_field_or_none(type_field: str) -> (int, None):
+def check_type_field_or_none(type_field: str) -> Optional[int]:
     """
     Возвращает id TypeField, по заданному type_field или None если такого не существует
 
@@ -18,7 +20,7 @@ def check_type_field_or_none(type_field: str) -> (int, None):
         return None
 
 
-def validate_field_data(request: Request, form_id: int) -> (FieldForm, None):
+def validate_field_data(request: Request, form_id: int) -> Optional[FieldForm]:
     """
     Проверка данных поля (FieldForm) формы
     :param form_id: id Form
