@@ -15,7 +15,7 @@ COPY . /usr/app
 RUN pip install -r requirements.txt
 
 ## Init db
-#CMD python -m flask init-db
+CMD python -m flask init-db
 
 ENV FLASK_APP=src
 # run flask in dev mode

@@ -21,6 +21,7 @@ DATABASE_URI = f'{DB_DIALECT}+{DB_DRIVER}://{DB_USER}:{DB_PASSWORD}@{DB_HOST_DOC
 class Config(object):
     DEBUG = False
     TESTING = False
+    print(os.environ.get('DATABASE_URL'))
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', DATABASE_URI)
     TEMPLATES_AUTO_RELOAD = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
