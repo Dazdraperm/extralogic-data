@@ -1,6 +1,7 @@
 from typing import Optional
 
 from flask import Request
+from sqlalchemy.orm.exc import StaleDataError
 
 from src import db
 from src.models import TypeField, FieldForm
@@ -80,3 +81,15 @@ def get_dict_fields(fields_form_rows: list) -> dict:
         dict_form_fields[fields_form_row.id] = dict(fields_form_row)
 
     return dict_form_fields
+
+
+def update_value_fields(value_fields: list) -> bool:
+    db.session.bulk_update_mappings(FieldForm,
+                                    value_fields
+                                    )
+    try:
+        db.session.commit()
+        return True
+    except StaleDataError as e:
+        print(e)
+        return False

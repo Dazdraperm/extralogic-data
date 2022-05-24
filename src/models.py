@@ -71,6 +71,7 @@ class FieldForm(model):
 
     name_field = db.Column(db.String(length=40))
     description = db.Column(db.String(length=150))
+    value_field = db.Column(db.String(length=250), nullable=True)
 
     form_id = db.Column(
         db.Integer, db.ForeignKey("form.id", ondelete="CASCADE"), nullable=False
@@ -100,27 +101,27 @@ class FieldForm(model):
         )
 
 
-class ValueFieldForm(model):
-    """
-    Данные находящиеся внутри поля формы
-    """
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement="ignore_fk")
-    field_form_id = db.Column(db.Integer, db.ForeignKey("field_form.id", ondelete="CASCADE"), unique=True)
-
-    field_form_fk = db.relationship(
-        "FieldForm", backref=db.backref("ValueFieldForm", uselist=False)
-    )
-    value_field = db.Column(db.String(length=250))
-
-    def __init__(self, field_form_id: str, value_field: str):
-        self.field_form_id = field_form_id
-        self.value_field = value_field
-
-    def __repr__(self):
-        return (
-            f"form_id: {self.form_id}, "
-            f"type_field_id: {self.type_field_id}, "
-            f"name_field: {self.name_field}, "
-            f"description: {self.description}"
-        )
+# class ValueFieldForm(model):
+#     """
+#     Данные находящиеся внутри поля формы
+#     """
+#
+#     id = db.Column(db.Integer, primary_key=True, autoincrement="ignore_fk")
+#     field_form_id = db.Column(db.Integer, db.ForeignKey("field_form.id", ondelete="CASCADE"), unique=True)
+#
+#     field_form_fk = db.relationship(
+#         "FieldForm", backref=db.backref("ValueFieldForm", uselist=False)
+#     )
+#     value_field = db.Column(db.String(length=250))
+#
+#     def __init__(self, field_form_id: str, value_field: str):
+#         self.field_form_id = field_form_id
+#         self.value_field = value_field
+#
+#     def __repr__(self):
+#         return (
+#             f"form_id: {self.form_id}, "
+#             f"type_field_id: {self.type_field_id}, "
+#             f"name_field: {self.name_field}, "
+#             f"description: {self.description}"
+#         )

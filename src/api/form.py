@@ -1,8 +1,9 @@
 from typing import Optional
 
+from flask import Response
 from flask_jsonrpc import JSONRPCBlueprint
 
-from src.services.field_service import get_dict_fields, get_fields_form_or_none
+from src.services.field_service import get_dict_fields, get_fields_form_or_none, update_value_fields
 from src.services.form_services import get_form_or_none
 
 rpc_bp = JSONRPCBlueprint('form', __name__)
@@ -22,3 +23,15 @@ def get_fields(form_uid: str) -> Optional[dict]:
         dict_fields = get_dict_fields(fields_form_rows)
 
     return dict_fields
+
+
+@rpc_bp.method('form.update_value_fields_by_id')
+def update_value_fields_by_id(value_fields: list) -> str | None:
+    status_update = update_value_fields(value_fields)
+
+    if not status_update:
+        result = 'Такого поля не существует'
+    else:
+        result = 'Успешное соханение'
+
+    return result
