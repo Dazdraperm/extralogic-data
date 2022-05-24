@@ -17,6 +17,14 @@
             </div>
         </div>
         <ul>
+            <li>
+                <div class="form-fields">
+                    <div class="width">Название поля</div>
+                    <div class="width">Описание поля</div>
+                    <div class="width">Тип поля</div>
+                    <div class="width">Значение поля</div>
+                </div>
+            </li>
             {% for field in fields_form %}
                 <li>
                     <div class="form-fields">
@@ -28,12 +36,15 @@
                         </div>
                         <div class="form-field">
                             <label>
-                                <select>
+                                <select class="width">
                                     <option disabled selected="selected">
                                         {{ field[1].type_field }}
                                     </option>
                                 </select>
                             </label>
+                        </div>
+                        <div class="form-field">
+                            <label><input disabled value=" {{ field[0].value_field }}"></label>
                         </div>
                     </div>
                 </li>
