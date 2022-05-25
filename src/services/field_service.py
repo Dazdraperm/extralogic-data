@@ -48,28 +48,13 @@ def validate_field_data(request: Request, form_id: int) -> Optional[FieldForm]:
     return field_form
 
 
-def get_fields_form_or_none(form_id) -> Optional[FieldForm]:
-    return (
-        db.session.query(
-            Form.id, Form.form_uid, Form.name_form, FieldForm.id.label('field_id'), FieldForm.name_field,
-            FieldForm.description,
-            FieldForm.type_field_id, TypeField.type_field, TypeField.type_value_field,
-            TypeField.id
-        ).filter(
-            FieldForm.type_field_id == TypeField.id
-        ).filter(
-            FieldForm.form_id == form_id
-        ).all()
-    )
-
-
 def get_form_data_service(form_uid) -> list[tuple] | None:
     return (
         db.session.query(
-            Form.id, Form.form_uid, Form.name_form, FieldForm.id.label('field_id'), FieldForm.name_field,
-            FieldForm.description,
-            FieldForm.type_field_id, FieldForm.value_field, TypeField.type_field, TypeField.type_value_field,
-            TypeField.id
+            Form.id, Form.form_uid, Form.name_form,
+            FieldForm.id.label('field_id'), FieldForm.name_field, FieldForm.description, FieldForm.type_field_id,
+            FieldForm.value_field.label('value_field'),
+            TypeField.id, TypeField.type_field, TypeField.type_value_field
         ).filter(
             Form.id == FieldForm.form_id
         ).filter(
@@ -92,11 +77,25 @@ def get_fields_form_or_none_template(form_id) -> Optional[FieldForm]:
     )
 
 
-def get_list_fields(fields_form_rows: list) -> list:
+def get_list_fields(fields_form_rows: list, need_value_field: bool = True) -> list[dict]:
+    """
+    Превращение полей формы из SqlAlchemy.Row в list[dict]
+
+    :param fields_form_rows: Объект SqlAlchemy.Row
+    :param need_value_fields: Нужно ли поле value_fields
+    :return:
+    """
     list_form_fields = []
 
     for fields_form_row in fields_form_rows:
-        list_form_fields.append(dict(fields_form_row))
+
+        if need_value_field:
+            dict_fields_form = dict(fields_form_row)
+        else:
+            dict_fields_form = dict(fields_form_row)
+            dict_fields_form.pop('value_field')
+
+        list_form_fields.append(dict_fields_form)
 
     return list_form_fields
 
