@@ -51,8 +51,10 @@ def validate_field_data(request: Request, form_id: int) -> Optional[FieldForm]:
 def get_fields_form_or_none(form_id) -> Optional[FieldForm]:
     return (
         db.session.query(
-            FieldForm.form_id, FieldForm.id.label('field_id'), FieldForm.name_field, FieldForm.description,
-            TypeField.type_field
+            Form.id, Form.form_uid, Form.name_form, FieldForm.id.label('field_id'), FieldForm.name_field,
+            FieldForm.description,
+            FieldForm.type_field_id, TypeField.type_field, TypeField.type_value_field,
+            TypeField.id
         ).filter(
             FieldForm.type_field_id == TypeField.id
         ).filter(
