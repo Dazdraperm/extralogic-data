@@ -29,10 +29,10 @@ def get_fields(form_uid: str) -> Optional[list]:
 def update_value_fields_by_id(value_fields: list) -> str | None:
     status_update = update_value_fields(value_fields)
 
-    if not status_update:
-        result = 'Такого поля не существует'
-    else:
+    if status_update:
         result = 'Успешное соханение'
+    else:
+        result = 'Такого поля не существует'
 
     return result
 
