@@ -1,3 +1,6 @@
+"""
+Basic views of Form (CRUD)
+"""
 from flask import Blueprint, render_template, request, url_for, redirect
 
 from src.services.field_service import get_fields_form_or_none_template

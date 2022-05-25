@@ -90,13 +90,13 @@ def get_fields_form_or_none_template(form_id) -> Optional[FieldForm]:
     )
 
 
-def get_dict_fields(fields_form_rows: list) -> dict:
-    dict_form_fields = {}
+def get_list_fields(fields_form_rows: list) -> list:
+    list_form_fields = []
 
     for fields_form_row in fields_form_rows:
-        dict_form_fields[fields_form_row.field_id] = dict(fields_form_row)
+        list_form_fields.append(dict(fields_form_row))
 
-    return dict_form_fields
+    return list_form_fields
 
 
 def update_value_fields(value_fields: list) -> bool:

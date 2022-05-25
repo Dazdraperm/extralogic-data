@@ -3,7 +3,7 @@ from typing import Optional
 from flask import Response
 from flask_jsonrpc import JSONRPCBlueprint
 
-from src.services.field_service import get_dict_fields, get_fields_form_or_none, update_value_fields, \
+from src.services.field_service import get_list_fields, get_fields_form_or_none, update_value_fields, \
     get_form_data_service
 from src.services.form_services import get_form_or_none
 
@@ -21,7 +21,7 @@ def get_fields(form_uid: str) -> Optional[dict]:
         fields_form_rows = get_fields_form_or_none(form_id=form.id)
 
     if fields_form_rows:
-        dict_fields = get_dict_fields(fields_form_rows)
+        dict_fields = get_list_fields(fields_form_rows)
 
     return dict_fields
 
@@ -44,6 +44,6 @@ def get_form_data(form_uid: str) -> list | None:
     dict_form_data = None
 
     if form_data:
-        dict_form_data = get_dict_fields(form_data)
+        dict_form_data = get_list_fields(form_data)
 
     return dict_form_data

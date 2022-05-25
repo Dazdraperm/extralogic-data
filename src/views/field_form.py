@@ -1,4 +1,7 @@
-from flask import Blueprint, request, redirect, url_for, Response, render_template
+"""
+Basic views of FieldForm (CRUD)
+"""
+from flask import Blueprint, request, redirect, url_for, Response
 
 from src.services.field_service import validate_field_data
 from src.services.form_services import get_form_or_none

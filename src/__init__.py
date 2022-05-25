@@ -16,7 +16,7 @@ def create_app():
 
     app = Flask(__name__)
 
-    # Give config from object
+    # Set config from object
     app.config.from_object(DevConfig)
 
     # JsonRPC and DB instance
